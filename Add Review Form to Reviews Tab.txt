@@ -1,0 +1,25 @@
+Add this to the local.xml to have the review form rendered in the review tab on the product detail page (instead of having to navigate to the separate page).
+
+     <catalog_product_view>
+
+        <!-- To reset Description Tab template, File Attachment extension replaces with the attachments -->
+        <reference name="content">
+            <reference name="product.description">
+                <action method="setTemplate"><template>catalog/product/view/description.phtml</template></action>
+            </reference>
+        </reference>
+
+        <reference name="product.info">
+            <block type="review/product_view_list" name="product.reviews" as="reviews" template="review/product/view/list.phtml">
+                <action method="addToParentGroup"><group>detailed_info</group></action>
+                <action method="setTitle" translate="value"><value>Reviews</value></action>
+		<block type="review/form" name="product.review.form" as="review_form">
+			<block type="page/html_wrapper" name="product.review.form.fields.before" as="form_fields_before" translate="label">
+				<label>Review Form Fields Before</label>
+				<action method="setMayBeInvisible"><value>1</value></action>
+			</block>
+		</block>
+            </block>
+        </reference>
+
+    </catalog_product_view>
